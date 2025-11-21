@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .item-list {
+            list-style: none;
+            padding: 0;
+        }
+        .item-card {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            background: white;
+        }
+        .item-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .item-link:hover {
+            color: #0056b3;
+        }
+        .item-details {
+            margin-top: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <h1>Каталог товаров</h1>
+    
+    {% if items %}
+        <ul class="item-list">
+            {% for item in items %}
+                <li class="item-card">
+                    <a href="{% url 'item_detail' item.id %}" class="item-link">
+                        {{ item.name }}
+                    </a>
+                    <div class="item-details">
+                        <strong>Цена:</strong> {{ item.price }} руб. | 
+                        <strong>В наличии:</strong> {{ item.quantity }} шт. | 
+                        <strong>Производитель:</strong> {{ item.manufacturer.name }}
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Товаров нет в базе данных.</p>
+        <p><a href="/admin/">Добавьте товары через админку</a></p>
+    {% endif %}
+</body>
+</html>
